@@ -3,7 +3,7 @@
 ####################################
 focus_follows_mouse yes
 focus_wrapping no
-for_window [class="^.*"] border pixel 5
+for_window [class="^.*"] border pixel 3
 ######################################
 
 ####################################
@@ -99,11 +99,10 @@ bindsym $mod+r mode "resize"
 bindsym $mod+w exec /usr/bin/firefox
 
 # File Manager
-bindsym $mod+n exec /usr/bin/pcmanfm
+bindsym $mod+n exec /usr/bin/thunar
 
 # Screenshot : FlameShot
-bindsym Print exec flameshot full --path ~/Pictures/screenshots
-bindsym $mod+Print exec flameshot gui --path ~/Pictures/screenshots
+bindsym Print exec scrot ~/%Y-%m-%d-%T-screenshot.png && notify-send "Screenshot saved to ~/$(date+"%Y-%m-%d-%T")-screenshot.png"
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -206,7 +205,7 @@ assign [class="Alacritty"] $ws1
 assign [class="(?i)firefox"] $ws2
 assign [class="Anaconda-Navigator"] $ws2
 assign [class="Code"] $ws3
-assign [class="Pcmanfm"] $ws4
+assign [class="Thunar"] $ws4
 assign [class="TelegramDesktop"] $ws5
 assign [class="discord"] $ws5
 assign [class="Slack"] $ws5
@@ -228,7 +227,7 @@ for_window [class=Alacritty] focus
 for_window [class=firefox] focus
 for_window [class=Anaconda-Navigator] focus
 for_window [class=Code] focus
-for_window [class=Pcmanfm] focus
+for_window [class=Thunar] focus
 for_window [class=TelegramDesktop] focus
 for_window [class=discord] focus
 for_window [class=Slack] focus
@@ -250,7 +249,7 @@ for_window [class=Nitrogen] focus
 #############################################
 
 #get auth work with polkit-gnome
-exec --no-startup-id /usr/lib/mate-polkit/polkit-mate-authentication-agent-1
+exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 
 #exec --no-startup-id dex -a -s /etc/xdg/autostart/:~/.config/autostart/
 exec --no-startup-id dex --autostart --environment i3
@@ -269,6 +268,9 @@ exec --no-startup-id xset s 480 dpms 600 600 600
 
 # disable power saving (for example if using xscreensaver)
 exec_always xset -dpms
+
+# Desktop notifications
+exec  --no-startup-id dbus-launch dunst --config ~/.config/dunst/dunstrc
 
 # Netowork Manager Applet
 bindsym $mod+Shift+n exec --no-startup-id nm-applet
